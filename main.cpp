@@ -62,11 +62,12 @@ int main(int argc, char** argv) {
 
     std::cout << "P3\n" << image_width << ' ' << image_height <<  "\n255\n";
 
-    auto start_time = std::chrono::system_clock::now();
+    auto prev = std::chrono::system_clock::now();
     for (int j = image_height - 1; j >= 0; --j) {
         auto now = std::chrono::system_clock::now();
         std::cerr << "\rScanlines remaining: " << j << ' '
-                  << "Time: " << ((j == image_height - 1) ? 0. : duration_cast<std::chrono::milliseconds>(now - start_time).count()/(image_height - 1 - j) * j) / 1000. << std::flush;
+                  << "Time: " << ((j == image_height - 1) ? 0. : duration_cast<std::chrono::milliseconds>(now - prev).count()*j) / 1000. << std::flush;
+        prev = now;
         for (int i = 0; i < image_width; ++i) {
             color pixel_color(0, 0, 0);
             for (int s = 0; s < samples_per_pixel; ++s){
