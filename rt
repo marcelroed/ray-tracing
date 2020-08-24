@@ -1,2 +1,3 @@
 #!/bin/bash
-./cmake-build-debug/ray_tracing $1 | convert ppm:- tmp/image.png && xdg-open tmp/image.png
+mkdir -p tmp
+./cmake-build-debug/ray_tracing $1 | convert ppm:- tmp/image.png && xdg-open tmp/image.png 2>/dev/null
